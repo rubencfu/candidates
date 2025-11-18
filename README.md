@@ -7,4 +7,4 @@ Then run frontend with `npm run frontend`
 
 And you are ready to go.
 
-If you want to run tests, simple run `npm run backend-tests` or `npm run frontend-tests`
+If you want to run tests, simply run `npm run backend-tests` or `npm run frontend-tests`
