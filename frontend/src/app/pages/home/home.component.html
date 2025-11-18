@@ -1,0 +1,63 @@
+<div class="container">
+  <mat-card class="form-card" appearance="outlined">
+    <mat-card-header class="card-header">
+      <mat-card-title>Candidate form</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="candidateForm">
+        <mat-form-field class="form-input">
+          <mat-label>Name</mat-label>
+          <input
+            required
+            matInput
+            placeholder="Gustave"
+            formControlName="name"
+          />
+          @if (candidateForm.get('name')?.hasError('required')) {
+          <mat-error>Name is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="form-input">
+          <mat-label>Surname</mat-label>
+          <input
+            required
+            matInput
+            placeholder="Sánchez"
+            formControlName="surname"
+          />
+          @if (candidateForm.get('surname')?.hasError('required')) {
+          <mat-error>Surname is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+        <div class="form-file">
+          <label for="excel">Excel file</label>
+          <input
+            #excelInput
+            id="excel"
+            required
+            type="file"
+            formControlName="excel"
+            accept=".xlsx, .xls"
+            (change)="handleFileInputExcel(excelInput.files)"
+          />
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        [disabled]="candidateForm.invalid || store.state() === 'loading'"
+        matButton="elevated"
+        (click)="sendCandidate()"
+      >
+        Send
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div class="candidates-wrap">
+    <h2>Candidates</h2>
+    <home-candidates-table
+      [candidates]="store.candidates()"
+    ></home-candidates-table>
+  </div>
+</div>
